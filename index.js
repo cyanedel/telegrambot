@@ -12,8 +12,17 @@ const bot = new TelegramBot(token, {polling: true});
  * @param {string} projectId The project to be used
  */
 async function processMessage(userInput, projectId = "foracebotapiv2") {
+	let privateKey  = JSON.parse(process.env.PRIVATE_KEY)
+	let clientEmail = process.env.CLIENT_EMAIL
+	let config = {
+		credentials: {
+			private_key: privateKey,
+			client_email: clientEmail
+		}
+	}
+
 	const sessionId     = uuid.v4();
-	const sessionClient = new dialogflow.SessionsClient();
+	const sessionClient = new dialogflow.SessionsClient(config);
 	const sessionPath   = sessionClient.sessionPath(projectId, sessionId);
 
 	const request = {
