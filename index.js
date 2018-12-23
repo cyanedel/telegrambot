@@ -1,6 +1,15 @@
-//dialogflow
-var dialogflow = require('dialogflow');
-var uuid = require('uuid');
+const dialogflow = require('dialogflow');
+const uuid = require('uuid');
+const express = require('express')
+const expressApp = express()
+
+const port = process.env.PORT || 3000
+expressApp.get('/', (req, res) => {
+  res.send('Started!')
+})
+expressApp.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
 
 //telegram
 // var 	TelegramBot = require('node-telegram-bot-api'),
