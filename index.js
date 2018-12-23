@@ -4,7 +4,7 @@ const uuid = require('uuid');
 
 //telegram
 const TelegramBot = require('node-telegram-bot-api');
-const token = '';
+const token = ENV['TEL_BOT_KEY'];
 const bot = new TelegramBot(token, {polling: true});
 
 /**
@@ -35,7 +35,15 @@ async function processMessage(userInput, projectId = "foracebotapiv2") {
 	bot.sendMessage(userInput.chat.id, response);
 }
 
+function localCustom(chatId, response){
+	bot.sendMessage(chatId, response);
+}
+
 bot.on('message', (msg) => {
-	const chatId = msg.chat.id;
-	processMessage(msg);
+	// const chatId = msg.chat.id;
+	if(msg.text == 'testnoapi'){
+		localCustom(msg.chat.id, 'me ok.')
+	}else{
+		processMessage(msg);
+	}
 });
