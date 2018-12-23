@@ -1,15 +1,12 @@
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
-const express = require('express')
-const expressApp = express()
 
+//fix for dynamic port issue in heroku
+const express = require('express');
+const expressApp = express();
 const port = process.env.PORT || 3000
-expressApp.get('/', (req, res) => {
-  res.send('Started!')
-})
-expressApp.listen(port, () => {
-  console.log(`Listening on port ${port}`)
-})
+expressApp.get('/', (req, res) => { res.send('Started!') });
+expressApp.listen(port, () => { console.log(`Listening on port ${port}`) });
 
 //telegram
 // var 	TelegramBot = require('node-telegram-bot-api'),
@@ -60,7 +57,7 @@ async function processMessage(userInput, projectId = "foracebotapiv2") {
 		// Query: `${result.queryText}`,
 		// Response: `${result.fulfillmentText}`,
 		// Intent: `${result.intent.displayName}`,
-	const response = `${result.fulfillmentText}\n\n--------------\nIntent: ${result.intent.displayName}`;
+	const response = `${result.fulfillmentText}\n--------------\nIntent: ${result.intent.displayName}`;
 	bot.sendMessage(userInput.chat.id, response);
 }
 
