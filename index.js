@@ -3,9 +3,11 @@ const dialogflow = require('dialogflow');
 const uuid = require('uuid');
 
 //telegram
-const TelegramBot = require('node-telegram-bot-api');
-const token = process.env.TEL_BOT_KEY;
-const bot = new TelegramBot(token, {polling: true});
+const 	TelegramBot = require('node-telegram-bot-api'),
+		port = process.env.PORT || 443,
+		host = '0.0.0.0',
+		token = process.env.TEL_BOT_KEY;
+const bot = new TelegramBot(token, { webHook: { port : port, host : host } });
 
 /**
  * Send a query to the dialogflow agent, and return the query result.
