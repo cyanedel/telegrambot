@@ -21,6 +21,9 @@ async function processMessage(userInput, projectId = "foracebotapiv2") {
 		}
 	}
 
+	console.log(privateKey)
+	console.log(clientEmail)
+
 	const sessionId     = uuid.v4();
 	const sessionClient = new dialogflow.SessionsClient(config);
 	const sessionPath   = sessionClient.sessionPath(projectId, sessionId);
