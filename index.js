@@ -4,7 +4,7 @@ const uuid = require('uuid');
 
 //telegram
 const TelegramBot = require('node-telegram-bot-api');
-const token = ENV['TEL_BOT_KEY'];
+const token = process.env.TEL_BOT_KEY;
 const bot = new TelegramBot(token, {polling: true});
 
 /**
