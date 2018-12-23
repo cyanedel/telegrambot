@@ -1,14 +1,15 @@
 //dialogflow
-const dialogflow = require('dialogflow');
-const uuid = require('uuid');
+var dialogflow = require('dialogflow');
+var uuid = require('uuid');
 
 //telegram
-const 	TelegramBot = require('node-telegram-bot-api'),
-		port = process.env.PORT || 443,
-		host = '0.0.0.0',
-		token = process.env.TEL_BOT_KEY;
-const bot = new TelegramBot(token, { webHook: { port : port, host : host } });
-
+var 	TelegramBot = require('node-telegram-bot-api'),
+		port        = process.env.PORT || 8443,
+		host        = process.env.HOST,
+		token       = process.env.TEL_BOT_KEY,
+ 		externalUrl = process.env.CUSTOM_ENV_VARIABLE || 'https://forasbot.herokuapp.com',
+		bot         = new TelegramBot(token, { webHook: { port : port, host : host } });
+bot.setWebHook(externalUrl + ':8443/bot' + token);
 /**
  * Send a query to the dialogflow agent, and return the query result.
  * @param {string} projectId The project to be used
