@@ -9,13 +9,9 @@ expressApp.get('/', (req, res) => { res.send('Started!') });
 expressApp.listen(port, () => { console.log(`Listening on port ${port}`) });
 
 //telegram
-// var 	TelegramBot = require('node-telegram-bot-api'),
-// 		port        = process.env.PORT || 8443,
-// 		host        = process.env.HOST,
-// 		token       = process.env.TEL_BOT_KEY,
-//  		externalUrl = process.env.CUSTOM_ENV_VARIABLE || 'https://forasbot.herokuapp.com',
-// 		bot         = new TelegramBot(token, { webHook: { port : port, host : host } });
-// bot.setWebHook(externalUrl + ':8443/bot' + token);
+var TelegramBot = require('node-telegram-bot-api'),
+    token       = process.env.TEL_BOT_KEY,
+    bot         = new TelegramBot(token, { polling: true });
 
 var 	TelegramBot = require('node-telegram-bot-api'),
 		token       = process.env.TEL_BOT_KEY,
@@ -35,9 +31,6 @@ async function processMessage(userInput, projectId = "foracebotapiv2") {
 		}
 	}
 
-	//console.log(privateKey)
-	//console.log(clientEmail)
-
 	const sessionId     = uuid.v4();
 	const sessionClient = new dialogflow.SessionsClient(config);
 	const sessionPath   = sessionClient.sessionPath(projectId, sessionId);
@@ -54,9 +47,6 @@ async function processMessage(userInput, projectId = "foracebotapiv2") {
 
 	const responses = await sessionClient.detectIntent(request);
 	const result = responses[0].queryResult;
-		// Query: `${result.queryText}`,
-		// Response: `${result.fulfillmentText}`,
-		// Intent: `${result.intent.displayName}`,
 	const response = `${result.fulfillmentText}\n--------------\nIntent: ${result.intent.displayName}`;
 	bot.sendMessage(userInput.chat.id, response);
 }
@@ -66,7 +56,6 @@ function localCustom(chatId, response){
 }
 
 bot.on('message', (msg) => {
-	// const chatId = msg.chat.id;
 	if(msg.text == 'testnoapi'){
 		localCustom(msg.chat.id, 'me ok.')
 	}else{
