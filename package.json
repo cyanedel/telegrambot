@@ -1,0 +1,18 @@
+{
+  "name": "tforacebot",
+  "version": "1.0.0",
+  "description": "A simple telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CL",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^2.3.4",
+    "dialogflow": "^0.7.0",
+    "node-telegram-bot-api": "^0.30.0",
+    "uuid": "^3.3.2"
+  }
+}
